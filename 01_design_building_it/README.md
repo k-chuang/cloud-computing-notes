@@ -182,3 +182,56 @@ Trailing Avg. / Last 5mins.)
   - Adopt some form of API governance (maintain standards for how they work)
 
 # Design Patterns for Scaling
+- AKF Scaling Cube
+  - Replicate entire system (horizontal)
+  - Split system into individual functions (functional / service splits)
+  - split the system into individual chunks (lookup or formulaic splits)
+
+## Horizontal Duplication (X Axis)
+- Increases throughput by replicating the service (scaling out)
+- Does not scale well with increases in data or with complex transactions that require special handling
+- If transactions require replicas to communicate (i.e. not independent), the scaling is less efficient.
+- Techniques
+  - Adding more machines / replicas
+  - Adding more disk spindles
+  - Adding more network Connections
+
+## Functional / Service Splits (Y Axis)
+- Scaling a system by splitting out each individual function so that it can be allocated additional resources
+- Separation of services to different machines (web server, database, application server)
+- Techniques:
+  - Splitting by function, with each function on its own machine oor on its own pool of machines
+  - Splitting by transaction Types
+  - Splitting by type of user
+
+## Lookup-Oriented SPlit (Z Axis)
+- Scales a system by **splitting the data** into identifiable segments, each of which it is given dedicated resources.
+- Similar to Y axis, but divides data instead of processing
+- EX. Divide/Segment a database by date or geography
+- Only undertaken when scaling on x and y axis is exhausted
+- Ways to Segment Data:
+  - By Hash Prefix: sharding
+  - By customer functionality
+  - By Utilization
+  - By organizational division
+
+## Caching
+- small datastore using fast/expensive media, intended to improve slow/cheap bigger data store
+- **Optimization of the Z-Axis**
+- Look up -> first cache, if not found, normal look up is done from disk
+
+## Data Sharding
+- Way to segment a database (Z-Axis) that is flexible, scalable, and resilient
+- Divides DB based on the hash value of the database keys
+- Ex. Divide DB into two shards:
+  - Generate hash of key and store keys with even hashes in one DB, and keys with odd hashes in other DB
+  - Distributed Hash Table (DHT)
+
+## Threading (Concurrency)
+- DAta can be processed in different ways to achieve better scaled
+- Threading = used to improve systme throughput by processing many requests at the same time
+- Threading is a technique used by modern operating systems to allow
+sequences of instructions to execute independently. Threads are subsets of processes; it’s typically faster to switch operations among threads than among
+processes. We use threading to get a fine granularity of control over processing for use in complex algorithms
+- Throughput is improved because
+requests are processed in parallel, multiple CPUs are utilized, and head of line blocking is reduced or eliminated.
