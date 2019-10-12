@@ -215,19 +215,18 @@ Trailing Avg. / Last 5mins.)
   - By Utilization
   - By organizational division
 
-## Caching
+## Caching (Optimization of the Z-Axis)
 - small datastore using fast/expensive media, intended to improve slow/cheap bigger data store
-- **Optimization of the Z-Axis**
 - Look up -> first cache, if not found, normal look up is done from disk
 
-## Data Sharding
+## Data Sharding (Optimization of the Z-Axis)
 - Way to segment a database (Z-Axis) that is flexible, scalable, and resilient
 - Divides DB based on the hash value of the database keys
 - Ex. Divide DB into two shards:
   - Generate hash of key and store keys with even hashes in one DB, and keys with odd hashes in other DB
   - Distributed Hash Table (DHT)
 
-## Threading (Concurrency)
+## Threading (Optimization of Processing)
 - DAta can be processed in different ways to achieve better scaled
 - Threading = used to improve systme throughput by processing many requests at the same time
 - Threading is a technique used by modern operating systems to allow
@@ -235,3 +234,9 @@ sequences of instructions to execute independently. Threads are subsets of proce
 processes. We use threading to get a fine granularity of control over processing for use in complex algorithms
 - Throughput is improved because
 requests are processed in parallel, multiple CPUs are utilized, and head of line blocking is reduced or eliminated.
+
+## Queueing (Optimization of Processing)
+
+## Overall Scaling
+- CPU-bound = scale by threading or queueing
+- I/O-bound = scale by data sharding or caching
